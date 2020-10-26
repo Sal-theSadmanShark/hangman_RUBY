@@ -18,7 +18,7 @@ class Hangman
   def play_turn
     @round = @round + 1
 
-    puts 'please write your guess -'
+    puts 'please write your input -'
     input = gets.chomp
 
     until verify_input(input)
