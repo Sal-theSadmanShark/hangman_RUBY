@@ -100,6 +100,7 @@ loop do
   play_a_round(game)
   break unless game.live
   game = start_new_game
+  game.show_game_state
 end
 
 play_outro
