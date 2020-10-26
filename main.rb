@@ -28,7 +28,7 @@ def instructions
   puts 'instructions - '
   print %{
     welcome to hangamn.
-    visit [https://en.wikipedia.org/wiki/Hangman_(game)] for about the rules
+    visit [https://en.wikipedia.org/wiki/Hangman_(game)] for the rules
     you can write -
      'save' to save the game
      'quit' to exit the game
