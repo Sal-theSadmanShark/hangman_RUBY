@@ -1,21 +1,45 @@
 require_relative 'hangman.rb'
 
 # essential methods
-def pick_word
+def pick_word(difficulty)
   count = IO.readlines('word_list.txt').size.freeze
   word = read_line( rand count )
-  until 5 <= word.size && word.size <= 12
+  until word_picker(word,difficulty)
     word = read_line( rand count )
   end
   word
+end
+
+def set_difficulty
+  puts
+  puts "choose the word length - [1.Easy (5 to 7)  2.Normal (7 , 8)  3.Hard (8 to 12)]"
+  print "input - "
+
+  n = gets.chomp.to_i
+  until 1 <= n && n <= 3
+    print 'plaese try again - '
+    n = gets.chomp.to_i
+  end
+  n
+end
+
+def word_picker(word,difficulty)
+  case difficulty
+  when 1
+    5 <= word.size && word.size <= 7
+  when 2
+    7 <= word.size && word.size <= 8
+  when 3
+    8 <= word.size && word.size <= 12
+  end
 end
 
 def read_line(line)
   IO.readlines('word_list.txt')[line].chomp
 end
 
-def start_new_game
-  Hangman.new(pick_word, 'saves.json')
+def start_new_game(difficulty = 2)
+  Hangman.new(pick_word(difficulty), 'saves.json')
 end
 
 def load_game
@@ -67,12 +91,13 @@ print %{
   1.new game
   2.load game
   3.instructions
+  4.difficulty
 }
 puts
 print "input - "
 
 n = gets.chomp.to_i
-until 1 <= n && n <= 3
+until 1 <= n && n <= 4
   print 'plaese try again - '
   n = gets.chomp.to_i
 end
@@ -88,6 +113,8 @@ when 2
 when 3
   instructions
   game = start_new_game
+when 4
+  game = start_new_game(set_difficulty)
 end
 
 puts
